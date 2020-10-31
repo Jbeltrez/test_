@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_patient
-      @current_patient ||= Patient.find_by_id(session[:user_id])
+      @current_patient ||= Patient.find_by_id(session[:user_id]) if session[:user_id]
     end 
 
     def logged_in?
