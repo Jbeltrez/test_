@@ -8,7 +8,12 @@
     <h2><a href="/prescriptions/<%=prescription.id%>"> <%= prescription.name %></a><h2><br/>
     Description: <%= prescription.description %><br/>
     <br>
-    Number: <%= prescription.id_no %><br/>
+    Number: <% if prescription.id_no = "" %>
+            <%= "Custom" %><br>
+            <%else%>
+            <%= prescription.id_no %><br/>
+            <% end %>
+    
     <br>
     Patient Notes: <%= prescription.notes %><br/>
     <br>

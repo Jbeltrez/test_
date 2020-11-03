@@ -54,7 +54,7 @@ class PrescriptionsController < ApplicationController
     end 
 
     post "/prescriptions" do
-        if logged_in?
+        
         params[:effect].downcase
         input = params[:effect].downcase
         effects = ["relaxed", "euphoric", "creative", "happy", "uplifted"]
@@ -63,13 +63,12 @@ class PrescriptionsController < ApplicationController
             @prescription = current_patient.prescriptions.create(name: p.name, description: p.desc, id_no: p.id_no)
      
         redirect "/prescriptions/#{@prescription.id}"
-        elsif
+        else
             flash[:error] = "Please enter one of the following to recieve a prescription: Relaxed, Happy, Euphoric, Uplifted, Creative"
-            redirect to '/prescriptions/new', danger: "INvalid"
+            redirect to '/prescriptions/new' #, danger: "INvalid"
         end 
-    else 
-        flash[:error] = "Please sign up or log in to continue"
-        redirect '/'
+    
+    end 
         # binding.pry 
         # if params[:effect] = "relaxed"
         #     flash[:error] = "we cant make you feel that"
@@ -82,7 +81,7 @@ class PrescriptionsController < ApplicationController
      
         # redirect "/prescriptions/#{@prescription.id}"
 
-    end 
+    
 
     get '/prescriptions/:id' do 
         if logged_in?
@@ -114,6 +113,7 @@ class PrescriptionsController < ApplicationController
         else 
             flash[:error] = "Please log in or sign up to continue"
             redirect '/'
+        end 
         # @prescription = Prescription.find(params[:id])
         
     end 

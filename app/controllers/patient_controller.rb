@@ -42,7 +42,6 @@ class PatientsController < ApplicationController
         @patient = Patient.new(:username => params[:username], :password => params[:password])
         @patient.save 
         session[:user_id] = @patient.id
-        binding.pry
         redirect '/patients'
       end 
     end 
