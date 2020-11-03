@@ -20,20 +20,20 @@ class ApplicationController < Sinatra::Base
     erb :index 
   end
 
-  get '/posts/:id/edit' do 
-    #checking if they are logged in 
-    if !logged_in? 
-      redirect "/login" #Redirecting if they arent 
-    else 
-      #how do i find the post that only the author user is allowed to edit 
-      post = Post.find(params[:id])
-      if post.user_id == current_user.id 
-        "An edit post form #{current_user.id} is editing #{post.id}" #rendering if they are 
-      else 
-        redirect '/posts'
-      end 
-    end 
-  end 
+  # get '/posts/:id/edit' do 
+  #   #checking if they are logged in 
+  #   if !logged_in? 
+  #     redirect "/login" #Redirecting if they arent 
+  #   else 
+  #     #how do i find the post that only the author user is allowed to edit 
+  #     post = Post.find(params[:id])
+  #     if post.user_id == current_user.id 
+  #       "An edit post form #{current_user.id} is editing #{post.id}" #rendering if they are 
+  #     else 
+  #       redirect '/posts'
+  #     end 
+  #   end 
+  # end 
 
   helpers do
     # def redirect_if_not_logged_in 

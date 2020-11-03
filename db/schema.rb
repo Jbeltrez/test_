@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20201020221831) do
 
   create_table "patients", force: :cascade do |t|
-    t.string "name"
+    t.string "username"
     t.string "password_digest"
   end
 

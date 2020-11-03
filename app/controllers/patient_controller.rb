@@ -14,55 +14,45 @@ class PatientsController < ApplicationController
 # 1. Build my user registration process (signup form and signup creation)
 # 2. give posts to users 
 # 3. only let them edit posts they made 
-
-      get "/signup" do
-        # if logged_in?
-        #     redirect '/prescriptions'
-        # else 
-        "this is the sign up page render it if you havent"
-            # erb :"/signup"
-            # or erb :"/patients/new"
-
-        # end 
-      end
-
-      post '/patients' do 
-        @patient = Patient.new
-        @patient.username = params[:username]
-        @patient.password = params[:password]
-        if @patient.save 
-            redirect '/login'
-        else 
-            erb :'/patients/new'
-        end
-
+  # clean up this page and also make sure the user can only see their prescriptions 
+    #  i think i need a user route??? 
+    #ive got my get and post signup and i need the same for my login then obviously 
+    # a logout route which would just clear the session, after a user logs in and when 
+    #they sign up i want to take them to their show page.... right??
+    get '/patients' do 
+      if logged_in? 
+        @patient = current_patient
+        erb :'patients/show'
+      else 
+        redirect'/'
       end 
+    end 
 
-      post "/signup" do
-        
-        if params[:username] == "" || params[:password] == ""
-          redirect "/signup"
-        else
-          @patient = Patient.create(:username => params[:username], :password => params[:password])
-          session[:user_id] = @patient.id
-          redirect "/patients/#{@patient.id}"
+    get "/signup" do
+        if !logged_in?
+          erb :'patients/new'          
+        else 
+          redirect '/patients'
         end 
-      end
-    
-      get '/patients/:id' do
-        @patient = Patient.find_by_id(session[:user_id])
-        @prescriptions = Prescription.all
-        # if @patient
-          erb :"/patients/show"
-        # else
-        #   erb :error
-        # end
-        # erb :account
-      end
-    
+    end
+    post "/signup" do 
+      if params[:username] == "" || params[:password] == ""
+        redirect "/signup"
+      else
+        @patient = Patient.new(:username => params[:username], :password => params[:password])
+        @patient.save 
+        session[:user_id] = @patient.id
+        binding.pry
+        redirect '/patients'
+      end 
+    end 
+
       get "/login" do
-     
-        erb :"patients/login" 
+        if !logged_in?
+          erb:'patients/login'
+        else 
+          redirect '/patients'
+        end 
       end 
     
       post "/login" do
@@ -70,22 +60,19 @@ class PatientsController < ApplicationController
         if @patient && @patient.authenticate(params[:password])
           session[:user_id] = @patient.id
           #redirect to that patients page  
-          redirect "/account"
+          erb :'/patients/show'
         else 
-            "user was not found"
-          redirect "/failure"
+          flash[:error] = "Incorrect username or password"
+            
+          redirect "/login"
+
         end 
-        ##your code here
       end
     
-      get "/failure" do
-        erb :failure
-      end
-    
-      get "/logout" do
-        # functionally, to log someone out you need to clear the session or 
-        # forget the person 
+      get '/logout' do
+        
         session.clear
         redirect "/"
       end
+   
 end 

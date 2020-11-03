@@ -1,9 +1,14 @@
 class PrescriptionsController < ApplicationController
 
     get '/prescriptions' do 
-        "A list of publically? available  posts/prescriptions?"
-        @prescriptions = Prescription.all 
+        if logged_in?
+        
+        @prescriptions = current_patient.prescriptions
         erb :'prescriptions/index'
+        else 
+            flash[:error] = "Please Login In or Sign up to continue"
+            redirect '/'
+        end 
         # if logged_in?
         # @prescriptions = Prescription.all 
         # erb :'prescriptions/index'
@@ -13,6 +18,7 @@ class PrescriptionsController < ApplicationController
     end
 
     get '/prescriptions/new' do
+        
          
         # checking if they are logged in 
         # if logged_in?
@@ -24,6 +30,13 @@ class PrescriptionsController < ApplicationController
         # end 
         erb :'/prescriptions/new'
     end 
+    get "/prescriptions/custom" do 
+        erb :'/prescriptions/custom'
+    end 
+    post "/custom" do 
+        @prescription = Prescription.create(name: params[:name], description: params[:description])
+        redirect "/prescriptions/#{@prescription.id}"
+    end 
 
     post "/prescriptions" do
         params[:effect].downcase
@@ -31,11 +44,11 @@ class PrescriptionsController < ApplicationController
         effects = ["relaxed", "euphoric", "creative", "happy", "uplifted"]
         if effects.include?(input)
             p = PrescriptionGen.new(params[:effect])
-        @prescription = Prescription.create(name: p.name, description: p.desc, id_no: p.id_no)
+            @prescription = current_patient.prescriptions.create(name: p.name, description: p.desc, id_no: p.id_no)
      
         redirect "/prescriptions/#{@prescription.id}"
         elsif
-            flash[:error] = "stoppppp"
+            flash[:error] = "Please enter one of the following to recieve a prescription: Relaxed, Happy, Euphoric, Uplifted, Creative"
             redirect to '/prescriptions/new', danger: "INvalid"
         end 
         # binding.pry 
@@ -45,10 +58,10 @@ class PrescriptionsController < ApplicationController
         # end 
       
   
-        p = PrescriptionGen.new(params[:effect])
-        @prescription = Prescription.create(name: p.name, description: p.desc, id_no: p.id_no)
+        # p = PrescriptionGen.new(params[:effect])
+        # @prescription = Prescription.create(name: p.name, description: p.desc, id_no: p.id_no)
      
-        redirect "/prescriptions/#{@prescription.id}"
+        # redirect "/prescriptions/#{@prescription.id}"
 
     end 
 

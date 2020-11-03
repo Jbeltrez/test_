@@ -1,7 +1,8 @@
+<%# user homepage should be able to view, add and add delete all prescriptions %>
 <h1>Welcome to your CannaPharm Patient Portal, <%= @patient.username %></h1>
 
-<% @prescriptions.each do |prescription| %>
-    <%= prescription.name %><br/>
+<% @patient.prescriptions.each do |prescription| %>
+    <a href="prescriptions/<%= prescription.id%>"><%= prescription.name %></a><br/>
     <%= prescription.description %><br/>
     <%= prescription.id_no %><br/>
     <%= prescription.notes %><br/>
@@ -10,3 +11,11 @@
     <br/>
     <br/>
 <% end %> 
+
+<h4><form method="get" action="/prescriptions/new">
+    <input type="submit" value="Request a new Prescription">
+    </form></h4>
+
+<h4><form method="get" action="/prescription/custom">
+    <input type="submit" value="Upload your ownn homegrown strain here">
+    </form></h4>
