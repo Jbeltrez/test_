@@ -1,0 +1,29 @@
+<h1><%= @prescription.name %><h1></br>
+
+<h5>
+    Description: <%= @prescription.description %>
+    <br>
+    Number: <%= @prescription.id_no %>
+    <br>
+    Notes:  <%= @prescription.notes %>
+    <br> 
+    Rating: <%if @prescription.rating == ""%>
+                puts 0 stars
+            <%end%>
+    <%= @prescription.rating  %> stars
+
+
+</h5>
+
+<form method="get" action="/prescriptions/<%=@prescription.id%>/edit">
+    <button type="submit" value="Add Notes/ Add Rating"> Add notes/Add rating </button> 
+</form>
+
+<form method="post" action="/prescriptions/<%=@prescription.id%>/delete">
+<input id="hidden" type="hidden" name="_method" value="DELETE">
+<button type="submit" value="Delete"> Delete </button>
+</form>
+
+<form method="get" action="/prescriptions">
+<button type="submit" value="Prescriptions Index">  All Prescriptions </button> 
+</form>

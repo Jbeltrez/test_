@@ -1,9 +1,27 @@
-<h1>To request a prescription, enter a desired effect below</h1>
+<h1><form method="get" action="/prescriptions">
+    <input type="submit" value="Back to Your Prescriptions">
+</form><h1>
+<h1>Prescription Request</h1>
+
+<p>We know that sometimes a change of mood is all it takes to turn things around.<p>
+
+<p>Here at CannaPharms, we are committed to providing you with something that can help you with whatever is troubling you<p>
+
+<p>Have an upcoming project to showcase and need to calm your nerves? Enter "relaxed" below.<p>
+<p>Feeling down because you need to refactor? Enter "happy" below.<p>
+<p>Worn out from hours of coding? Enter "uplifted" below.<p>
+<p>Bored from looking at too many Avi Flobaum tutorials? Enter "euphoric" below.<p> 
+<p>Starting a new project and need ideas? Enter "creative" below.<p>
+
 <h1>Relaxed, Happy, Uplifted, Euphoric, Creative</h1>
 
 <form action="/prescriptions" method="POST">
-<label>Desired Effect</label>
+<label>Enter one of the options from above here:</label>
 <input type="text" name="effect" placeholder="Enter an effect here"></br>
 
 <input type="submit" value="Request Prescription">
 </form> 
+
+<h1>Custom Prescription</h1>
+
+<form action="/prescriptions" method="POST">
