@@ -4,6 +4,7 @@ class PrescriptionsController < ApplicationController
         if logged_in?
         
         @prescriptions = current_patient.prescriptions
+        # binding.pry 
         erb :'prescriptions/index'
         else 
             flash[:error] = "Please Login In or Sign up to continue"
@@ -84,19 +85,31 @@ class PrescriptionsController < ApplicationController
     
 
     get '/prescriptions/:id' do 
-        if logged_in?
+        if logged_in?  
         @prescription = Prescription.find(params[:id])
-        erb :'prescriptions/show'
+            if current_patient.id == @prescription.patient_id 
+                erb :'prescriptions/show'
+            else 
+                flash[:error] = "You can only view prescriptions in your own collection!"
+                redirect '/'
+            end 
         else 
             flash[:error] = "Please log in or sign up to continue"
             redirect '/'
         end 
     end 
 
+        #check if another user can edit something that isnt there
     get '/prescriptions/:id/edit' do 
         if logged_in?
         @prescription = Prescription.find(params[:id])
-        erb :'prescriptions/edit'
+            if current_patient.id == @prescription.patient_id  
+                erb :'prescriptions/edit'
+            else
+                flash[:error] = "You can only view prescriptions in your own collection!"
+                redirect '/'
+            end 
+
         else 
             flash[:error] = "Please log in or sign up to continue"
             redirect '/'
@@ -121,8 +134,15 @@ class PrescriptionsController < ApplicationController
     delete '/prescriptions/:id/delete' do 
         if logged_in?
         @prescription = Prescription.find(params[:id])
-        @prescription.delete 
-        redirect '/prescriptions'
+            if current_patient.id == @prescription.patient_id 
+            
+                @prescription.delete 
+                redirect '/prescriptions'
+            else 
+                flash[:error] = "You can only delete prescriptions in your own collection!"
+                redirect '/'
+            end 
+            
         else 
             flash[:error] = "Please log in or sign up to continue"
             redirect '/'

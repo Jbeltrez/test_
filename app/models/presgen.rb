@@ -36,17 +36,17 @@ class PrescriptionGen
         
     end 
 
-    def save
-        @@prescriptions << self 
-    end 
+    # def save
+    #     @@prescriptions << self 
+    # end 
 
-    def rating=(input)
-        @rating = input
-    end 
+    # def rating=(input)
+    #     @rating = input
+    # end 
 
-    def enter_notes=(input)
-        @notes = input
-    end 
+    # def enter_notes=(input)
+    #     @notes = input
+    # end 
     
     def attr_setter(hash) 
         hash.each do |k,v|
@@ -54,15 +54,15 @@ class PrescriptionGen
         end 
     end 
 
-    def self.view_prescriptions_by_rating(input) 
-        @@prescriptions.select {|prescription| puts "Id No. #{prescription.id}\nName: #{prescription.name}\nDescription: #{prescription.desc}\nNotes: #{prescription.notes}\nRating: #{prescription.rating}\n\n" if prescription.rating == input}
-    end 
+    # def self.view_prescriptions_by_rating(input) 
+    #     @@prescriptions.select {|prescription| puts "Id No. #{prescription.id}\nName: #{prescription.name}\nDescription: #{prescription.desc}\nNotes: #{prescription.notes}\nRating: #{prescription.rating}\n\n" if prescription.rating == input}
+    # end 
 
-    def self.view_prescriptions 
-        @@prescriptions
-    end 
+    # def self.view_prescriptions 
+    #     @@prescriptions
+    # end 
 
-    def self.clear_prescriptions
-        @@prescriptions.clear 
-    end 
+    # def self.clear_prescriptions
+    #     @@prescriptions.clear 
+    # end 
 end 
