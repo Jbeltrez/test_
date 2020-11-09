@@ -3,7 +3,7 @@
     <button type="submit" value="New Prescription"> Request a Prescription</button> 
 </form>
 <br>
-<br>
+
 <% @prescriptions.each do |prescription| %>
     <h2><a href="/prescriptions/<%=prescription.id%>"> <%= prescription.name %></a><h2><br/>
     Description: <%= prescription.description %><br/>
@@ -22,6 +22,7 @@
     <br/>
     <br/>
 <% end %> 
+
 <form method="get" action="/logout">
     <input type="submit" value="Logout">
 </form>
