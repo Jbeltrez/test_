@@ -4,16 +4,9 @@
     <input type="submit" value="Logout">
 </form>
 
-<% @patient.prescriptions.each do |prescription| %>
-    Name: <a href="prescriptions/<%= prescription.id%>"><%= prescription.name %></a><br/>
-    Description: <%= prescription.description %><br/>
-    Number: <%= prescription.id_no %><br/>
-    Notes: <%= prescription.notes %><br/>
-    Rating: <%= prescription.rating %><br/>
-    <a href="/prescriptions/<%= prescription.id %>/edit">Add Notes/Add Rating</a>
-    <br/>
-    <br/>
-<% end %> 
+<h4><form method="get" action="/prescriptions">
+    <input type="submit" value="View my prescriptions">
+    </form></h4>
 
 <h4><form method="get" action="/prescriptions/new">
     <input type="submit" value="Request a new Prescription">
@@ -22,3 +15,14 @@
 <h4><form method="get" action="/prescriptions/custom">
     <input type="submit" value="Upload your own strain here">
     </form></h4>
+    <br>
+<h5>Your Prescriptions:</h5>
+
+<% @patient.prescriptions.each do |prescription| %>
+    <ol>
+        <li>Name: <a href="prescriptions/<%= prescription.id%>"><%= prescription.name %></a><br/>
+    </ol>
+    <br/>
+    
+<% end %>
+

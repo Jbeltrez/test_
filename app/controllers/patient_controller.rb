@@ -27,7 +27,7 @@ class PatientsController < ApplicationController
         redirect'/'
       end 
     end 
-
+              
     get "/signup" do
         if !logged_in?
           erb :'patients/new'          
@@ -35,6 +35,7 @@ class PatientsController < ApplicationController
           redirect '/patients'
         end 
     end
+
     post "/signup" do 
       if params[:username] == "" || params[:password] == ""
         redirect "/signup"

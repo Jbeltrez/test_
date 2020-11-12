@@ -118,17 +118,17 @@ class PrescriptionsController < ApplicationController
     end 
 
     patch '/prescriptions/:id' do
-        accepted_ratings = [1, 2, 3, 4, 5] 
+        accepted_ratings = ["1", "2", "3", "4", "5"] 
         if accepted_ratings.include?(params[:rating])
-        if logged_in?
-        @prescription = Prescription.find(params[:id])
-        @prescription.update(notes: params[:notes], rating: params[:rating])
+            if logged_in?
+            @prescription = Prescription.find(params[:id])
+            @prescription.update(notes: params[:notes], rating: params[:rating])
 
-        redirect "/prescriptions"
-        else 
+            redirect "/prescriptions"
+            else 
             flash[:error] = "Please log in or sign up to continue"
             redirect '/'
-        end 
+            end 
     else 
         flash[:error] = "Accepted ratings are between 1-5"
         redirect "/prescriptions/#{params[:id]}"
