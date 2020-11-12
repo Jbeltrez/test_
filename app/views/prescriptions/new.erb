@@ -19,11 +19,22 @@
 <h1>Relaxed, Happy, Uplifted, Euphoric, Creative</h1>
 
 <form action="/prescriptions" method="POST">
-<label>Enter one of the options from above here:</label>
-<input type="text" name="effect" placeholder="Enter an effect here"></br>
+<label for="moods">Choose a mood:</label>
 
+<select name="moods" id="moods">
+  <option value="happy">Happy</option>
+  <option value="creative">Creative</option>
+  <option value="euphoric">Euphoric</option>
+  <option value="relaxed">Relaxed</option>
+  <option value="uplifted">Uplifted</option>
+
+</select>
 <input type="submit" value="Request Prescription">
 </form> 
+
+
+
+
 
 <h1>Custom Prescription</h1>
 

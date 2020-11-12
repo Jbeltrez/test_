@@ -46,6 +46,7 @@ class PrescriptionsController < ApplicationController
     end 
     post "/custom" do 
         if logged_in?
+            
         @prescription = current_patient.prescriptions.create(name: params[:name], description: params[:description])
         redirect "/prescriptions/#{@prescription.id}"
         else 
@@ -55,15 +56,16 @@ class PrescriptionsController < ApplicationController
     end 
 
     post "/prescriptions" do
+        # binding.pry 
         
-        params[:effect].downcase
-        input = params[:effect].downcase
-        effects = ["relaxed", "euphoric", "creative", "happy", "uplifted"]
-        if effects.include?(input)
-            p = PrescriptionGen.new(params[:effect])
+        params[:moods].downcase
+        input = params[:moods].downcase
+        # effe = ["relaxed", "euphoric", "creative", "happy", "uplifted"]
+        if input != nil 
+            p = PrescriptionGen.new(params[:moods])
             @prescription = current_patient.prescriptions.create(name: p.name, description: p.desc, id_no: p.id_no)
      
-        redirect "/prescriptions/#{@prescription.id}"
+            redirect "/prescriptions/#{@prescription.id}"
         else
             flash[:error] = "Please enter one of the following to recieve a prescription: Relaxed, Happy, Euphoric, Uplifted, Creative"
             redirect to '/prescriptions/new' #, danger: "INvalid"
